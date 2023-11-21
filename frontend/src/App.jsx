@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 import "./App.css";
 
 export default function App() {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [limit, setLimit] = useState(20);
@@ -25,6 +26,7 @@ export default function App() {
   async function searchMovies(e) {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await Axios.get(
         `https://yts.mx/api/v2/list_movies.json?query_term=${search}&limit=${limit}`
       );
@@ -32,7 +34,7 @@ export default function App() {
     } catch (error) {
       console.error(error);
     } finally {
-      console.log("FUCK YEAA MAYTEE");
+      setLoading(true);
     }
   }
 
@@ -52,7 +54,7 @@ export default function App() {
           value={limit}
           type="Number"
         />
-        <button type="submit">FAKIN CLICK THIS BULLSHIT MAYTE</button>
+        <button type="submit">{loading ? "Loading..." : "Search"}</button>
       </form>
       {data.length === 0 ? (
         <p>No results found</p>
