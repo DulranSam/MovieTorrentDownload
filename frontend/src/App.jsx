@@ -34,7 +34,7 @@ export default function App() {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   }
 
